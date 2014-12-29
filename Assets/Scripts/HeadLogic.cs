@@ -14,6 +14,7 @@ public class HeadLogic : MonoBehaviour
 	{
 		dead = false;
 		moveSpeed = 8;
+		moveDirection.x = 1.0f;
 	}
 
 	public bool isDead()
