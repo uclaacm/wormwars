@@ -13,7 +13,7 @@ public class HeadLogic : MonoBehaviour
 	void Start ()
 	{
 		dead = false;
-		moveSpeed = 8;
+		moveSpeed = 4;
 		moveDirection.x = 1.0f;
 	}
 
