@@ -12,7 +12,7 @@ public class ComputerController : MonoBehaviour
 		detectionCooldown = 0;
 	}
 
-	bool isDangerous(RaycastHit2D[] collisions)
+	bool IsDangerous(RaycastHit2D[] collisions)
 	{
 		Vector2 pos = transform.position;
 		foreach (RaycastHit2D hit in collisions) {
@@ -32,9 +32,9 @@ public class ComputerController : MonoBehaviour
 	{
 		HeadLogic head = GetComponent<HeadLogic>();
 		Vector3 pos = transform.position;
-		if (!head.isDead ()) {
+		if (!head.IsDead ()) {
 
-			Vector3 curDir = head.getMoveDirection();
+			Vector3 curDir = head.GetMoveDirection();
 			Vector3 nextDir = curDir;
 			detectionCooldown -= Time.deltaTime;
 			evasionCooldown -= Time.deltaTime;
@@ -71,14 +71,14 @@ public class ComputerController : MonoBehaviour
 			RaycastHit2D[] center = Physics2D.RaycastAll(pos, nextDir),
 						   side1 = Physics2D.RaycastAll (pos + normalLine - 0.3f * nextDir, nextDir),
 						   side2 = Physics2D.RaycastAll (pos - normalLine - 0.3f * nextDir, nextDir);
-			if (isDangerous (center) || isDangerous (side1) || isDangerous (side2)) {
+			if (IsDangerous (center) || IsDangerous (side1) || IsDangerous (side2)) {
 				Vector3 curNormal = Quaternion.AngleAxis(90, Vector3.forward) * curDir;
 				nextDir = Vector3.RotateTowards(curDir, curNormal, 4*Mathf.PI * Time.deltaTime, 0.0f);
 				evasionCooldown = 0.1f;
 			}
 
 			// set direction
-			head.setMoveDirection (nextDir);
+			head.SetMoveDirection (nextDir);
 		}
 	}
 }

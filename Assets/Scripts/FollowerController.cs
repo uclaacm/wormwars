@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FollowerController : MonoBehaviour {
-
+public class FollowerController : MonoBehaviour
+{
 	public GameObject target;
 	public GameObject follower;
-	public float maxDistance;
 	public float deathDelay;
+	public float maxDistance;
 
+	private int playerNum;
 	private bool dead;
 	private float deathWaitTimer;
 
@@ -20,13 +21,30 @@ public class FollowerController : MonoBehaviour {
 	{
 		if (!follower) {
 			follower = (GameObject)Instantiate(Resources.Load ("follower"));
-			follower.GetComponent<FollowerController>().target = gameObject;
+			FollowerController fcnt = follower.GetComponent<FollowerController>();
+			fcnt.target = gameObject;
+			fcnt.SetPlayerNum(playerNum);
+			fcnt.ChangeColor();
 			follower.transform.position = transform.position - direction * maxDistance;
 			follower.transform.parent = transform.parent;
 		}
 		else {
 			follower.GetComponent<FollowerController>().Grow (direction);
 		}
+	}
+
+	public void SetPlayerNum(int num)
+	{
+		playerNum = num;
+		if (follower)
+			follower.GetComponent<FollowerController>().SetPlayerNum (num);
+	}
+	
+	public void ChangeColor()
+	{
+		renderer.material.color = PlayerColors.GetFollowerColor (playerNum);
+		if (follower)
+			follower.GetComponent<FollowerController>().ChangeColor ();
 	}
 
 	public float Die(float wait)

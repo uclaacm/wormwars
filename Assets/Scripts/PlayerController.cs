@@ -15,8 +15,8 @@ public class PlayerController : MonoBehaviour
 	void Update ()
 	{
 		HeadLogic head = GetComponent<HeadLogic>();
-		if (!head.isDead()) {
-			head.setMoveDirection (GetDirection ());
+		if (!head.IsDead()) {
+			head.SetMoveDirection (GetDirection ());
 		}
 	}
 }

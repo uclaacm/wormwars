@@ -1,9 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class MasterController : MonoBehaviour {
+public class MasterController : MonoBehaviour
+{
+	public int maxPlayers = 8;
 
 	private int state = 0;
+	private int numPlayers = 0;
+	private List<GameObject> players = new List<GameObject>();
 
 	void OnGUI()
 	{
@@ -18,15 +23,17 @@ public class MasterController : MonoBehaviour {
 
 	void Update()
 	{
-		if (Input.GetKeyUp ("space")) {
-			SpawnAI ();
+		if (state != 0) {
+			if (Input.GetKeyUp ("space") && players.Count < maxPlayers) {
+				SpawnAI ();
+			}
 		}
 	}
 
 	private void SinglePlayer()
 	{
-		state = 1;
 		SpawnPlayer();
+		state = 1;
 	}
 
 	private void ObserveMode()
@@ -37,13 +44,36 @@ public class MasterController : MonoBehaviour {
 	private void SpawnPlayer()
 	{
 		GameObject player = (GameObject)GameObject.Instantiate(Resources.Load ("Player"), Vector3.zero, Quaternion.identity);
-		GameObject head = player.transform.FindChild ("head").gameObject;
 		GameObject camera = GameObject.FindGameObjectWithTag ("MainCamera");
+		GameObject head = player.transform.FindChild ("head").gameObject;
 		camera.GetComponent<CameraController> ().player = head;
+		AddPlayer (player);
 	}
 
 	private void SpawnAI()
 	{
-		GameObject.Instantiate(Resources.Load ("Computer"), Vector3.zero, Quaternion.identity);
+		GameObject comp = (GameObject)GameObject.Instantiate(Resources.Load ("Computer"), Vector3.zero, Quaternion.identity);
+		AddPlayer (comp);
+	}
+
+	private void AddPlayer(GameObject p)
+	{
+		p = p.transform.FindChild ("head").gameObject;
+		int idx = -1;
+		for (int i = 0; i < players.Count; i++) {
+			if (!players[i]) {
+				idx = i;
+				break;
+			}
+		}
+		if (idx == -1) {
+			idx = players.Count;
+			players.Add (null);
+		}
+		players[idx] = p;
+		HeadLogic hd = p.GetComponent<HeadLogic> ();
+		hd.SetPlayerNum (idx);
+		hd.ChangeColor ();
+		numPlayers++;
 	}
 }

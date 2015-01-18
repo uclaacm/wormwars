@@ -3,33 +3,47 @@ using System.Collections;
 
 public class HeadLogic : MonoBehaviour
 {
+	public float moveSpeed;
 	public GameObject follower;
-	
-	public Vector3 moveDirection;
-	private float moveSpeed;
+
+	private int playerNum;
+	private Vector3 moveDirection;
 	private bool dead;
 	private float deathWaitTimer;
 	
 	void Start ()
 	{
 		dead = false;
-		moveSpeed = 4;
 		moveDirection.x = 1.0f;
 	}
 
-	public bool isDead()
+	public void SetPlayerNum(int num)
+	{
+		playerNum = num;
+		if (follower)
+			follower.GetComponent<FollowerController>().SetPlayerNum (num);
+	}
+
+	public void ChangeColor()
+	{
+		renderer.material.color = PlayerColors.GetHeadColor (playerNum);
+		if (follower)
+			follower.GetComponent<FollowerController>().ChangeColor ();
+	}
+
+	public bool IsDead()
 	{
 		return dead;
 	}
 
-	public void setMoveDirection(Vector3 nextMoveDirection)
+	public void SetMoveDirection(Vector3 nextMoveDirection)
 	{
 		nextMoveDirection.z = 0;
 		nextMoveDirection.Normalize ();
 		moveDirection = nextMoveDirection;
 	}
 
-	public Vector3 getMoveDirection()
+	public Vector3 GetMoveDirection()
 	{
 		return moveDirection;
 	}
@@ -40,6 +54,8 @@ public class HeadLogic : MonoBehaviour
 			follower = (GameObject)Instantiate(Resources.Load ("follower"));
 			FollowerController fcnt = follower.GetComponent<FollowerController>();
 			fcnt.target = gameObject;
+			fcnt.SetPlayerNum(playerNum);
+			fcnt.ChangeColor();
 			follower.transform.position = transform.position - moveDirection * fcnt.maxDistance;
 			follower.transform.parent = transform.parent;
 		}
