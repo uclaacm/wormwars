@@ -75,5 +75,7 @@ public class MasterController : MonoBehaviour
 		hd.SetPlayerNum (idx);
 		hd.ChangeColor ();
 		numPlayers++;
+		GameObject world = GameObject.FindGameObjectWithTag ("World");
+		world.GetComponent<WorldController> ().AdjustRate (numPlayers);
 	}
 }
