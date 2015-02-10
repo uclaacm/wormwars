@@ -7,6 +7,7 @@ public class HeadLogic : MonoBehaviour
 	public GameObject follower;
 
 	private int playerNum;
+	private int length;
 	private Vector3 moveDirection;
 	private bool dead;
 	private float deathWaitTimer;
@@ -14,6 +15,7 @@ public class HeadLogic : MonoBehaviour
 	void Start ()
 	{
 		dead = false;
+		length = 1;
 		moveDirection.x = 1.0f;
 	}
 
@@ -50,6 +52,7 @@ public class HeadLogic : MonoBehaviour
 	
 	void Grow(Vector3 direction)
 	{
+		length += 1;
 		if (!follower) {
 			follower = (GameObject)Instantiate(Resources.Load ("follower"));
 			FollowerController fcnt = follower.GetComponent<FollowerController>();
@@ -67,6 +70,7 @@ public class HeadLogic : MonoBehaviour
 	void Respawn(Vector3 pos)
 	{
 		dead = false;
+		length = 1;
 		collider2D.enabled = true;
 		renderer.enabled = true;
 		follower = null;
@@ -78,9 +82,11 @@ public class HeadLogic : MonoBehaviour
 		dead = true;
 		collider2D.enabled = false;
 		renderer.enabled = false;
-		deathWaitTimer = 2.0f;
+		float popTime = 0.5f + (length / 20f);
+		float delay = popTime / length;
 		if (follower)
-			deathWaitTimer += follower.GetComponent<FollowerController> ().Die (0);
+			follower.GetComponent<FollowerController> ().Die (0, delay);
+		deathWaitTimer = 2.0f + popTime;
 	}
 	
 	void Move(float dur)

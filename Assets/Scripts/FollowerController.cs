@@ -5,7 +5,6 @@ public class FollowerController : MonoBehaviour
 {
 	public GameObject target;
 	public GameObject follower;
-	public float deathDelay;
 	public float maxDistance;
 
 	private int playerNum;
@@ -47,15 +46,13 @@ public class FollowerController : MonoBehaviour
 			follower.GetComponent<FollowerController>().ChangeColor ();
 	}
 
-	public float Die(float wait)
+	public void Die(float wait, float delay)
 	{
 		dead = true;
 		collider2D.enabled = false;
-		deathWaitTimer = wait + deathDelay;
-		float headWait = deathDelay;
+		deathWaitTimer = wait + delay;
 		if (follower)
-			headWait += follower.GetComponent<FollowerController> ().Die (wait + deathDelay);
-		return headWait;
+			follower.GetComponent<FollowerController> ().Die (deathWaitTimer, delay);
 	}
 	
 	// Update is called once per frame

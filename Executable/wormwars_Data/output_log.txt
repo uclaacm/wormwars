@@ -6,11 +6,11 @@ Direct3D:
     Vendor:   Intel
     VRAM:     64 MB
 Begin MonoManager ReloadAssembly
-Platform assembly: S:\Files\Programming\Projects\wormwars\Executable\wormwars_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading S:\Files\Programming\Projects\wormwars\Executable\wormwars_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: S:\Files\Programming\Projects\wormwars\Executable\wormwars_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading S:\Files\Programming\Projects\wormwars\Executable\wormwars_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-- Completed reload, in  0.060 seconds
+Platform assembly: S:\Files\Programming\Unity\wormwars\wormwars_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading S:\Files\Programming\Unity\wormwars\wormwars_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: S:\Files\Programming\Unity\wormwars\wormwars_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading S:\Files\Programming\Unity\wormwars\wormwars_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+- Completed reload, in  0.043 seconds
 desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
