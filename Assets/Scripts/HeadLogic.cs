@@ -23,14 +23,14 @@ public class HeadLogic : MonoBehaviour
 	{
 		playerNum = num;
 		if (follower)
-			follower.GetComponent<FollowerController>().SetPlayerNum (num);
+			follower.GetComponent<FollowerLogic>().SetPlayerNum (num);
 	}
 
 	public void ChangeColor()
 	{
 		renderer.material.color = PlayerColors.GetHeadColor (playerNum);
 		if (follower)
-			follower.GetComponent<FollowerController>().ChangeColor ();
+			follower.GetComponent<FollowerLogic>().ChangeColor ();
 	}
 
 	public bool IsDead()
@@ -55,15 +55,16 @@ public class HeadLogic : MonoBehaviour
 		length += 1;
 		if (!follower) {
 			follower = (GameObject)Instantiate(Resources.Load ("follower"));
-			FollowerController fcnt = follower.GetComponent<FollowerController>();
-			fcnt.target = gameObject;
-			fcnt.SetPlayerNum(playerNum);
-			fcnt.ChangeColor();
-			follower.transform.position = transform.position - moveDirection * fcnt.maxDistance;
+			FollowerLogic flogic = follower.GetComponent<FollowerLogic>();
+			FollowerController fctrl = follower.GetComponent<FollowerController>();
+			flogic.target = gameObject;
+			flogic.SetPlayerNum(playerNum);
+			flogic.ChangeColor();
+			follower.transform.position = transform.position - moveDirection * fctrl.maxDistance;
 			follower.transform.parent = transform.parent;
 		}
 		else {
-			follower.GetComponent<FollowerController>().Grow (direction);
+			follower.GetComponent<FollowerLogic>().Grow (direction);
 		}
 	}
 	
@@ -85,7 +86,7 @@ public class HeadLogic : MonoBehaviour
 		float popTime = 0.5f + (length / 20f);
 		float delay = popTime / length;
 		if (follower)
-			follower.GetComponent<FollowerController> ().Die (0, delay);
+			follower.GetComponent<FollowerLogic> ().Die (0, delay);
 		deathWaitTimer = 2.0f + popTime;
 	}
 	

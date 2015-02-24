@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FoodController : MonoBehaviour {
+public class FoodLogic : MonoBehaviour {
 	
 	void Update ()
 	{

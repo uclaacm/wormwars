@@ -68,8 +68,8 @@ public class ComputerController : MonoBehaviour
 			if (Danger (forward) > 1) {
 				// if danger detected, turn either left or right depending on which one is less dangerous
 				float dir = 75f;
-				Vector3 turn1 = Util.Rotated (curDir, dir),
-						turn2 = Util.Rotated (curDir, -dir);
+				Vector3 turn1 = Utils.Rotated (curDir, dir),
+						turn2 = Utils.Rotated (curDir, -dir);
 				RaycastHit2D[] d1 = Physics2D.RaycastAll(pos, turn1),
 							   d2 = Physics2D.RaycastAll(pos, turn2);
 				Vector3 decision = Danger (d1) < Danger (d2) ? turn1 : turn2;

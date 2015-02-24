@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class WorldController : MonoBehaviour {
+public class WorldLogic : MonoBehaviour {
 
 	public int foodLimitBase;
 	public int foodLimitChange;

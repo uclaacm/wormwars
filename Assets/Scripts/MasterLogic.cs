@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class MasterController : MonoBehaviour
+public class MasterLogic : MonoBehaviour
 {
 	public int maxPlayers = 8;
 
@@ -76,6 +76,6 @@ public class MasterController : MonoBehaviour
 		hd.ChangeColor ();
 		numPlayers++;
 		GameObject world = GameObject.FindGameObjectWithTag ("World");
-		world.GetComponent<WorldController> ().AdjustRate (numPlayers);
+		world.GetComponent<WorldLogic> ().AdjustRate (numPlayers);
 	}
 }
