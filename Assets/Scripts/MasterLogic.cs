@@ -24,7 +24,7 @@ public class MasterLogic : MonoBehaviour
 	void Update()
 	{
 		if (state != 0) {
-			if (Input.GetKeyUp ("space") && players.Count < maxPlayers) {
+			if (Input.GetKeyUp ("space") && numPlayers < maxPlayers) {
 				SpawnAI ();
 			}
 		}
@@ -56,9 +56,9 @@ public class MasterLogic : MonoBehaviour
 		AddPlayer (comp);
 	}
 
-	private void AddPlayer(GameObject p)
+	private void AddPlayer(GameObject obj)
 	{
-		p = p.transform.FindChild ("head").gameObject;
+		obj = obj.transform.FindChild ("head").gameObject;
 		int idx = -1;
 		for (int i = 0; i < players.Count; i++) {
 			if (!players[i]) {
@@ -70,8 +70,9 @@ public class MasterLogic : MonoBehaviour
 			idx = players.Count;
 			players.Add (null);
 		}
-		players[idx] = p;
-		HeadLogic hd = p.GetComponent<HeadLogic> ();
+		players[idx] = obj;
+		HeadLogic hd = obj.GetComponent<HeadLogic> ();
+		ComputerScripts.AddController (obj, idx);
 		hd.SetPlayerNum (idx);
 		hd.ChangeColor ();
 		numPlayers++;
