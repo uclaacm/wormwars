@@ -25,13 +25,22 @@ to drag the camera around, while AI players can be launched the same way.
 Development
 ---
 
-The game is being built using the Unity game engine.
+The game is being built using the Unity game engine. [Download][0] and install
+the free version if you don't have it already.
 
 Included in this repository are the complete editor settings and assets of the
 project. To set up:
 
-1. Create a new project in Unity, call it "wormwars"
-2. Close Unity
-3. Copy Assets and ProjectSettings from here to the new project (overwrite the
-   defaults)
-4. Double-click scene.unity inside Assets to open the project
+1. Clone or download the repo as zip
+2. Make sure the root folder is named "wormwars" if not already
+3. Open Assets/scene.unity
+
+To write your own AIs:
+
+1. Create a script file in **Assets/Plugin Scripts**. C# or Javascript works
+2. Edit the `scripts` array in **Assets/Standard Assets/WormWar Scripts/ComputerScripts.cs**
+to point to your script name instead of ComputerController
+3. To control your worm, use the `GetMoveDirection` and `SetMoveDirection`
+functions from HeadLogic.cs
+
+[0]: http://unity3d.com/unity/download
